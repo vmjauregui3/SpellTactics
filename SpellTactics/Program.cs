@@ -1,3 +1,3 @@
 ﻿
-using var game = new SpellTactics.Game1();
+using var game = new SpellTactics.SpellTactics();
 game.Run();
