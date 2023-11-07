@@ -11,25 +11,25 @@ namespace SpellTactics
     public class World
     {
         public Map Map;
-
-        public Sprite Wizard;
+        public Player User;
 
         public World() 
         {
             Map = new Map("TileSheets/GroundTilesReduced", 5);
-
-            Wizard = new Sprite("Sprites/Wizard", Vector2.Zero);
+            User = new Player();
         }
 
         public void Update(GameTime gameTime)
         {
             Camera.Instance.UpdatePosition(Vector2.Zero);
+
+            User.Update(gameTime, this);
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             Map.Draw(spriteBatch);
-            Wizard.Draw(spriteBatch);
+            User.Draw(spriteBatch);
         }
     }
 }
