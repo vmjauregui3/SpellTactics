@@ -19,6 +19,11 @@ namespace SpellTactics
         public List<Player> players;
         private int playerTurn;
 
+        public void AddDestructible(object destructible)
+        {
+            Destructibles.Add((Destructible)destructible);
+        }
+
         public World() 
         {
             GameCommands.PassDestructible = AddDestructible;
@@ -31,11 +36,6 @@ namespace SpellTactics
             players.Add(User);
             players.Add(AIPlayer);
             StartPlayerTurn(playerTurn);
-        }
-
-        public void AddDestructible(object destructible)
-        {
-            Destructibles.Add((Destructible)destructible);
         }
 
         public void StartPlayerTurn(int player)

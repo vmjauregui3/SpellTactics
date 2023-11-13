@@ -40,8 +40,6 @@ namespace SpellTactics
             IsCasting = !IsCasting;
         }
 
-
-
         public override void Update(GameTime gameTime, Player enemy)
         {
             base.Update(gameTime, enemy);
