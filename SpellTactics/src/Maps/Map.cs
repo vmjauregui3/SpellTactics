@@ -10,7 +10,7 @@ namespace SpellTactics
 {
     public class Map
     {
-        private static int tileSize = 64;
+        private int tileSize = STConstants.TileSize;
 
         public int AmountOfTiles;
         protected Texture2D Texture;
@@ -26,7 +26,7 @@ namespace SpellTactics
             for (int i = 0; i < AmountOfTiles; i++)
             {
                 Rectangle sourceRect = new Rectangle(tileSize * i, 0, tileSize, tileSize);
-                tiles.Add(new Tile(Texture, sourceRect, tileSize));
+                tiles.Add(new Tile(Texture, sourceRect));
             }
 
             tileMap = new int[5, 5];

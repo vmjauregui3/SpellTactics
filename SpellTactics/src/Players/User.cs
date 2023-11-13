@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,39 @@ namespace SpellTactics
 
         public User(int id) : base(id)
         {
-            Wizard = new Wizard(id);
+            Wizard = new Wizard(id, Vector2.Zero);
+        }
+
+
+
+        public void EndTurn()
+        {
+            isTurn = false;
+            ControlMovements();
+        }
+
+        public void ControlInput()
+        {
+            
+        }
+
+        public void ControlMovements()
+        {
+            Wizard.Move(new Vector2(0, 1));
         }
 
         public override void Update(GameTime gameTime, Player enemy, World world)
         {
             base.Update(gameTime, enemy, world);
+            if (isTurn)
+            {
+                ControlInput();
+                if (InputManager.Instance.KeyPressed(Keys.Enter))
+                {
+                    EndTurn();
+                    world.EndPlayerTurn();
+                }
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

@@ -17,6 +17,8 @@ namespace SpellTactics
         // Destructibles contain a sprite that represents them visiually and contains their game location.
         public AnimatedSprite Sprite;
 
+        public Vector2 Position;
+
         protected Stat speed;
         public Stat Speed
         {
@@ -56,13 +58,14 @@ namespace SpellTactics
         }
 
         // The constructor requires an ID to be created.
-        public Destructible(int ownerId)
+        public Destructible(int ownerId, Vector2 position)
         {
             this.ownerId = ownerId;
             isDead = false;
             speed = new Stat(100);
             movement = new Stat(0);
             health = new VariableStat(10);
+            Position = position;
         }
 
         public void CheckIfDead()
@@ -72,6 +75,13 @@ namespace SpellTactics
                 isDead = true;
             }
         }
+
+        public void Move(Vector2 movement)
+        {
+            Position += movement;
+            Sprite.Position = Position * STConstants.TileSize;
+        }
+
         public void SetIsLoaded(bool isLoaded)
         {
             this.isLoaded = isLoaded;

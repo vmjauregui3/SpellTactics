@@ -14,17 +14,42 @@ namespace SpellTactics
         public User User;
         public AIPlayer AIPlayer;
 
+        public List<Player> players;
+        private int playerTurn;
+
         public World() 
         {
             Map = new Map("TileSheets/GroundTilesReduced", 5);
             User = new User(0);
             AIPlayer = new AIPlayer(1);
+            players = new List<Player>();
+            playerTurn = 0;
+            players.Add(User);
+            players.Add(AIPlayer);
+            StartPlayerTurn(playerTurn);
+        }
+
+        public void StartPlayerTurn(int player)
+        {
+            players[player].StartTurn();
+        }
+
+        public void EndPlayerTurn()
+        {
+            playerTurn++;
+            if (playerTurn >= players.Count)
+            {
+                playerTurn = 0;
+            }
+            StartPlayerTurn(playerTurn);
         }
 
         public void Update(GameTime gameTime)
         {
-            User.Update(gameTime, AIPlayer, this);
-            AIPlayer.Update(gameTime, User, this);
+            foreach(Player player in players)
+            {
+                player.Update(gameTime, AIPlayer, this);
+            }
 
             Camera.Instance.UpdatePosition(User.Wizard.Sprite.Position);
         }

@@ -10,9 +10,9 @@ namespace SpellTactics
 {
     public class Wizard : Creature
     {
-        public Wizard(int ownerId) : base(ownerId)
+        public Wizard(int ownerId, Vector2 position) : base(ownerId, position)
         {
-            Sprite = new AnimatedSprite("Sprites/Wizard", Vector2.Zero);
+            Sprite = new AnimatedSprite("Sprites/Wizard", position * STConstants.TileSize);
         }
     }
 }

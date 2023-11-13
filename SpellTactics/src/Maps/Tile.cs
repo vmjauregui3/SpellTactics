@@ -9,18 +9,17 @@ namespace SpellTactics
 {
     public class Tile
     {
-        protected int tileSize;
+        protected int tileSize = STConstants.TileSize;
         protected float scale;
 
         // Sprites' Textures are what is seen by the users. The sourceRect is what portion of the png is shown.
         protected Texture2D Texture;
         protected Rectangle sourceRect;
 
-        public Tile(Texture2D texture, Rectangle sourceRect, int tileSize)
+        public Tile(Texture2D texture, Rectangle sourceRect)
         {
             Texture = texture;
             this.sourceRect = sourceRect;
-            this.tileSize = tileSize;
         }
 
         public void Draw(SpriteBatch spriteBatch, Vector2 position)

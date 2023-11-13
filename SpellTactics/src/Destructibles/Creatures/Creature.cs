@@ -26,7 +26,7 @@ namespace SpellTactics
 
         public bool IsCasting;
 
-        public Creature(int ownerId) : base(ownerId)
+        public Creature(int ownerId, Vector2 position) : base(ownerId, position)
         {
             movement = new Stat(3);
             mana = new VariableStat(1000);
@@ -44,24 +44,6 @@ namespace SpellTactics
 
         public override void Update(GameTime gameTime, Player enemy)
         {
-            if (mana.Value != mana.ValueMax)
-            {
-                manaTimer.UpdateTimer(gameTime);
-                if (manaTimer.Test())
-                {
-                    if (mana.Value + manaRegen.Value <= mana.ValueMax)
-                    {
-                        mana.AddValue(manaRegen.Value);
-                        manaTimer.ResetToZero();
-                    }
-                    else if (mana.Value + manaRegen.Value > mana.ValueMax)
-                    {
-                        mana.SetValue(mana.ValueMax);
-                        manaTimer.ResetToZero();
-                    }
-                }
-            }
-
             base.Update(gameTime, enemy);
         }
 
