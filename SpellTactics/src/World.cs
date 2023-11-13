@@ -11,12 +11,12 @@ namespace SpellTactics
     public class World
     {
         public Map Map;
-        public Player User;
+        public User User;
 
         public World() 
         {
             Map = new Map("TileSheets/GroundTilesReduced", 5);
-            User = new Player();
+            User = new User();
         }
 
         public void Update(GameTime gameTime)

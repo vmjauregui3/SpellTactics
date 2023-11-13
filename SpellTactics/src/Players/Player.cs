@@ -11,8 +11,6 @@ namespace SpellTactics
     public class Player
     {
 
-        public Sprite Wizard;
-
         // Player id is used to organize Creatures under Player control.
         private int id;
         public int Id
@@ -22,7 +20,7 @@ namespace SpellTactics
 
         public Player()
         {
-            Wizard = new Sprite("Sprites/Wizard", Vector2.Zero);
+            
         }
 
         public virtual void Update(GameTime gameTime, World world)
@@ -32,7 +30,7 @@ namespace SpellTactics
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            Wizard.Draw(spriteBatch);
+        
         }
     }
 }
