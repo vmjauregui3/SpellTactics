@@ -17,9 +17,9 @@ namespace SpellTactics
             Wizard = new Wizard(id);
         }
 
-        public override void Update(GameTime gameTime, World world)
+        public override void Update(GameTime gameTime, Player enemy, World world)
         {
-            base.Update(gameTime, world);
+            base.Update(gameTime, enemy, world);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

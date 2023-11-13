@@ -20,10 +20,10 @@ namespace SpellTactics
 
         public Player(int id)
         {
-            
+            this.id = id;
         }
 
-        public virtual void Update(GameTime gameTime, World world)
+        public virtual void Update(GameTime gameTime, Player enemy, World world)
         {
 
         }

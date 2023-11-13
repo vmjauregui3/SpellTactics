@@ -26,8 +26,6 @@ namespace SpellTactics
 
         public bool IsCasting;
 
-        private float[] attributeMods;
-
         public Creature(int ownerId) : base(ownerId)
         {
             movement = new Stat(3);
