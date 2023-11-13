@@ -17,23 +17,22 @@ namespace SpellTactics
         // Destructibles contain a sprite that represents them visiually and contains their game location.
         public AnimatedSprite Sprite;
 
-        // All game objects have a direction and speed.
-        protected Vector2 Velocity;
-        public float MoveSpeed;
+        protected Stat speed;
+        public Stat Speed
+        {
+            get { return speed; }
+        }
+        protected Stat movement;
+        public Stat Movement
+        {
+            get { return movement; }
+        }
 
         // Objects have health which determines when they get destroyed.
         protected VariableStat health;
         public VariableStat Health
         {
             get { return health; }
-        }
-
-        // Objests current render collisions with their distance from other objects.
-        // TODO: Improve collision detection
-        protected float hitDistance;
-        public float HitDistance
-        {
-            get { return hitDistance; }
         }
 
         // isDead tracks when the object still needs to be updated and drawn.
@@ -61,8 +60,8 @@ namespace SpellTactics
         {
             this.ownerId = ownerId;
             isDead = false;
-            hitDistance = 35.0f;
-            MoveSpeed = 0.0f;
+            speed = new Stat(100);
+            movement = new Stat(0);
             health = new VariableStat(10);
         }
 

@@ -16,14 +16,14 @@ namespace SpellTactics
         public World() 
         {
             Map = new Map("TileSheets/GroundTilesReduced", 5);
-            User = new User();
+            User = new User(0);
         }
 
         public void Update(GameTime gameTime)
         {
-            Camera.Instance.UpdatePosition(Vector2.Zero);
-
             User.Update(gameTime, this);
+
+            Camera.Instance.UpdatePosition(User.Wizard.Sprite.Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)

@@ -18,7 +18,7 @@ namespace SpellTactics
             get { return id; }
         }
 
-        public Player()
+        public Player(int id)
         {
             
         }

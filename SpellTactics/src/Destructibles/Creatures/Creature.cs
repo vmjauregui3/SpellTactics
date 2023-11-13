@@ -28,19 +28,13 @@ namespace SpellTactics
 
         private float[] attributeMods;
 
-        public Creature(int ownderId) : base(ownderId)
+        public Creature(int ownerId) : base(ownerId)
         {
-            MoveSpeed = 100.0f;
+            movement = new Stat(3);
             mana = new VariableStat(1000);
             manaRegen = new VariableStat(5);
             manaTimer = new MTimer(100);
             IsCasting = false;
-
-            attributeMods = new float[Enum.GetNames(typeof(Attribute)).Length];
-            for (int i = 0; i < Enum.GetNames(typeof(Attribute)).Length; i++)
-            {
-                attributeMods[i] = 1;
-            }
         }
 
         public void ToggleCasting()

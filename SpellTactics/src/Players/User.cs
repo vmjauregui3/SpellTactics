@@ -10,11 +10,11 @@ namespace SpellTactics
 {
     public class User : Player
     {
-        public Sprite Wizard;
+        public Wizard Wizard;
 
-        public User()
+        public User(int id) : base(id)
         {
-            Wizard = new Sprite("Sprites/Wizard", Vector2.Zero);
+            Wizard = new Wizard(id);
         }
 
         public override void Update(GameTime gameTime, World world)
