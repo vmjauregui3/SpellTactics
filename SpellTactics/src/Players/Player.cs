@@ -19,17 +19,33 @@ namespace SpellTactics
             get { return id; }
         }
 
+        protected Destructible selectedObject;
+
         public Player(int id)
         {
             this.id = id;
             bool isTurn = false;
+        }
+        
+        public virtual void ControlMovements()
+        {
+        }
+
+        public void EndTurn()
+        {
+            isTurn = false;
+            ControlMovements();
+        }
+
+        public Vector2 GetTile(Vector2 position)
+        {
+            return position / STConstants.TileSize;
         }
 
         public virtual void StartTurn()
         {
             isTurn = true;
         }
-
 
 
         public virtual void Update(GameTime gameTime, Player enemy, World world)

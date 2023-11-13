@@ -14,11 +14,15 @@ namespace SpellTactics
         public User User;
         public AIPlayer AIPlayer;
 
+        public List<Destructible> Destructibles = new List<Destructible>();
+
         public List<Player> players;
         private int playerTurn;
 
         public World() 
         {
+            GameCommands.PassDestructible = AddDestructible;
+
             Map = new Map("TileSheets/GroundTilesReduced", 5);
             User = new User(0);
             AIPlayer = new AIPlayer(1);
@@ -27,6 +31,11 @@ namespace SpellTactics
             players.Add(User);
             players.Add(AIPlayer);
             StartPlayerTurn(playerTurn);
+        }
+
+        public void AddDestructible(object destructible)
+        {
+            Destructibles.Add((Destructible)destructible);
         }
 
         public void StartPlayerTurn(int player)

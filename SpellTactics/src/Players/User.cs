@@ -18,20 +18,12 @@ namespace SpellTactics
             Wizard = new Wizard(id, Vector2.Zero);
         }
 
-
-
-        public void EndTurn()
-        {
-            isTurn = false;
-            ControlMovements();
-        }
-
         public void ControlInput()
         {
-            
+
         }
 
-        public void ControlMovements()
+        public override void ControlMovements()
         {
             Wizard.Move(new Vector2(0, 1));
         }
