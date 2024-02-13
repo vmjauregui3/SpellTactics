@@ -15,39 +15,44 @@ namespace SpellTactics
         public User User;
         public AIPlayer AIPlayer;
 
-        public List<Destructible> Destructibles = new List<Destructible>();
-
-        public List<Player> players;
+        public List<Player> Players;
         private int playerTurn;
+
+        public List<Destructible> Destructibles = new List<Destructible>();
 
         public void AddDestructible(object destructible)
         {
             Destructibles.Add((Destructible)destructible);
         }
 
-        public World() 
+        public World(User user) 
         {
             GameCommands.PassDestructible = AddDestructible;
 
             Map = new Map("TileSheets/GroundTilesReduced", 5);
-            User = new User(0);
+
+            User = user;
+            GameCommands.PassDestructible(User.Wizard);
             AIPlayer = new AIPlayer(1);
-            players = new List<Player>();
+
+            Players = new List<Player>();
+            Players.Add(User);
+            Players.Add(AIPlayer);
+
             playerTurn = 0;
-            players.Add(User);
-            players.Add(AIPlayer);
+            
             StartPlayerTurn(playerTurn);
         }
 
         public void StartPlayerTurn(int player)
         {
-            players[player].StartTurn();
+            Players[player].StartTurn();
         }
 
         public void EndPlayerTurn()
         {
             playerTurn++;
-            if (playerTurn >= players.Count)
+            if (playerTurn >= Players.Count)
             {
                 playerTurn = 0;
             }
@@ -56,12 +61,12 @@ namespace SpellTactics
 
         public void Update(GameTime gameTime)
         {
-            foreach(Player player in players)
+            Map.Update();
+            foreach (Player player in Players)
             {
-                player.Update(gameTime, AIPlayer, this);
+                player.Update(gameTime, this);
             }
-
-            Camera.Instance.UpdatePosition(User.Wizard.Sprite.Position);
+            //Camera.Instance.UpdatePosition(User.Wizard.Sprite.Position);
         }
 
         public void Draw(SpriteBatch spriteBatch)

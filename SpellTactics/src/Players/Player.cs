@@ -19,11 +19,14 @@ namespace SpellTactics
             get { return id; }
         }
 
+        public Sprite Cursor;
+
         protected Destructible selectedObject;
         protected Vector2 selectedPosition;
 
         public Player(int id)
         {
+            Cursor = new Sprite("Sprites/Cursor", new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y));
             this.id = id;
             bool isTurn = false;
             selectedPosition = Vector2.Zero;
@@ -62,8 +65,9 @@ namespace SpellTactics
             isTurn = true;
         }
 
-        public virtual void Update(GameTime gameTime, Player enemy, World world)
+        public virtual void Update(GameTime gameTime, World world)
         {
+            Cursor.Position = Vector2.Transform(new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y), Matrix.Invert(Camera.Instance.Transform));
             if (isTurn)
             {
                 EndTurn();
@@ -73,7 +77,7 @@ namespace SpellTactics
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-        
+            Cursor.Draw(spriteBatch);
         }
     }
 }

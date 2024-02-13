@@ -11,6 +11,14 @@ namespace SpellTactics
 {
     public class User : Player
     {
+        public Vector2 CameraPosition;
+        public int CameraSpeed;
+
+        //private Vector2 RightClickHoldPos;
+        private Vector2 rightClickPos;
+        private bool waitingForClickRelease;
+        //private Vector2 RightClickReleasePos;
+
         public Wizard Wizard;
 
         private Vector2 mousePosition;
@@ -18,7 +26,8 @@ namespace SpellTactics
         public User(int id) : base(id)
         {
             Wizard = new Wizard(id, Vector2.Zero);
-            GameCommands.PassDestructible(Wizard);
+            CameraSpeed = 10;
+            waitingForClickRelease = false;
         }
 
         public void ControlInput(List<Destructible> destructibles)
@@ -41,16 +50,52 @@ namespace SpellTactics
 
         }
 
+        public void ControlCamera()
+        {
+            if (InputManager.Instance.KeyDown(Keys.W))
+            {
+                CameraPosition.Y -= CameraSpeed;
+            }
+            if (InputManager.Instance.KeyDown(Keys.S))
+            {
+                CameraPosition.Y += CameraSpeed;
+            }
+            if (InputManager.Instance.KeyDown(Keys.A))
+            {
+                CameraPosition.X -= CameraSpeed;
+            }
+            if (InputManager.Instance.KeyDown(Keys.D))
+            {
+                CameraPosition.X += CameraSpeed;
+            }
+            if (MCursor.Instance.RightClickHold())
+            {
+                if (waitingForClickRelease == false)
+                {
+                    rightClickPos = mousePosition;
+                    waitingForClickRelease = true;
+                }
+            }
+            if (MCursor.Instance.RightClickRelease())
+            {
+                CameraPosition -= (mousePosition - rightClickPos);
+                waitingForClickRelease = false;
+            }
+
+        }
+
         public override void ControlMovements()
         {
             Wizard.Move(selectedPosition);
         }
 
-        public override void Update(GameTime gameTime, Player enemy, World world)
+        public override void Update(GameTime gameTime, World world)
         {
+            ControlCamera();
             mousePosition = Vector2.Transform(new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y), Matrix.Invert(Camera.Instance.Transform));
+            Camera.Instance.UpdatePosition(CameraPosition);
 
-            base.Update(gameTime, enemy, world);
+            base.Update(gameTime, world);
             if (isTurn)
             {
                 ControlInput(world.Destructibles);

@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace SpellTactics
 {
@@ -26,6 +27,9 @@ namespace SpellTactics
         {
             get { return gameOrigin; }
         }
+
+
+        public User User;
 
         private World world;
 
@@ -63,7 +67,8 @@ namespace SpellTactics
 
             STContent = new ContentManager(Content.ServiceProvider, "Content");
 
-            world = new World();
+            User = new User(0);
+            world = new World(User);
         }
 
         protected override void LoadContent()

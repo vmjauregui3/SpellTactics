@@ -174,14 +174,10 @@ namespace SpellTactics
             if (newMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Released && oldMouse.RightButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
             {
                 dragging = false;
+                rightDrag = false;
                 return true;
             }
             return false;
-        }
-
-        public void SetFirst()
-        {
-
         }
     }
 }
