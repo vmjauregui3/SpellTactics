@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace SpellTactics
 {
+
     public class World
     {
         public Map Map;
