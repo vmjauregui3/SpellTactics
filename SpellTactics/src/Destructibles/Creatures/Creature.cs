@@ -11,6 +11,20 @@ namespace SpellTactics
     {
         // Creature is an abstract grouping of destructibles that have some form of intelligence commanding them.
 
+
+
+        protected VariableStat speed;
+        public VariableStat Speed
+        {
+            get { return speed; }
+        }
+        protected Stat movement;
+        public Stat Movement
+        {
+            get { return movement; }
+        }
+
+
         // Creatures have mana which determines when what abilities they can use and when.
         protected VariableStat mana;
         public VariableStat Mana
@@ -28,6 +42,8 @@ namespace SpellTactics
 
         public Creature(int ownerId, Vector2 mapPosition) : base(ownerId, mapPosition)
         {
+            speed = new VariableStat(100);
+            speed.SetValue(0);
             movement = new Stat(3);
             mana = new VariableStat(1000);
             manaRegen = new VariableStat(5);

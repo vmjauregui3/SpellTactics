@@ -12,7 +12,7 @@ namespace SpellTactics
     {
         protected bool isTurn;
 
-        public List<Destructible> Controllables;
+        public List<Creature> Controllables = new List<Creature>();
 
         // Player id is used to organize Creatures under Player control.
         private int id;
@@ -76,7 +76,10 @@ namespace SpellTactics
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-
+            foreach (Creature controllable in Controllables)
+            {
+                controllable.Draw(spriteBatch);
+            }
         }
     }
 }

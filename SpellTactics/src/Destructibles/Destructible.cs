@@ -24,16 +24,6 @@ namespace SpellTactics
             get { return MapPosition * STConstants.TileSize; }
         }
 
-        protected Stat speed;
-        public Stat Speed
-        {
-            get { return speed; }
-        }
-        protected Stat movement;
-        public Stat Movement
-        {
-            get { return movement; }
-        }
 
         // Objects have health which determines when they get destroyed.
         protected VariableStat health;
@@ -56,6 +46,8 @@ namespace SpellTactics
             get { return ownerId; }
         }
 
+        protected bool isTurn;
+
         protected bool isLoaded;
         public bool IsLoaded
         {
@@ -67,8 +59,7 @@ namespace SpellTactics
         {
             this.ownerId = ownerId;
             isDead = false;
-            speed = new Stat(100);
-            movement = new Stat(0);
+            isTurn = false;
             health = new VariableStat(10);
             MapPosition = mapPosition;
             //Position = MapPosToPos(mapPosition);
@@ -96,6 +87,16 @@ namespace SpellTactics
         public void SetIsLoaded(bool isLoaded)
         {
             this.isLoaded = isLoaded;
+        }
+
+        public virtual void EndTurn()
+        {
+            isTurn = false;
+        }
+
+        public virtual void StartTurn()
+        {
+            isTurn = true;
         }
 
         // UpdateHealth damages the object and checks its life status afterward.

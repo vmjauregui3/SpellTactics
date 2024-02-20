@@ -23,14 +23,14 @@ namespace SpellTactics
         private bool waitingForClickRelease;
         //private Vector2 RightClickReleasePos;
 
-        public Wizard Wizard;
-
-
 
         public User(int id) : base(id)
         {
             Cursor = new Sprite("Sprites/Cursor", new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y));
-            Wizard = new Wizard(id, Vector2.One);
+            Controllables.Add(new Wizard(id, new Vector2(1,1)));
+            Controllables.Add(new Wizard(id, new Vector2(1, 2)));
+            Controllables.Add(new Wizard(id, new Vector2(2, 1)));
+            Controllables.Add(new Wizard(id, new Vector2(2, 2)));
             CameraSpeed = 10;
             waitingForClickRelease = false;
         }
@@ -91,7 +91,7 @@ namespace SpellTactics
 
         public override void ControlMovements()
         {
-            Wizard.Move(selectedPosition);
+            //Wizard.Move(selectedPosition);
         }
 
         public override void Update(GameTime gameTime, World world)
@@ -115,7 +115,6 @@ namespace SpellTactics
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            Wizard.Draw(spriteBatch);
             base.Draw(spriteBatch);
             Cursor.Draw(spriteBatch);
         }

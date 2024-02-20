@@ -25,14 +25,25 @@ namespace SpellTactics
             Destructibles.Add((Destructible)destructible);
         }
 
+        public List<Creature> Controllables = new List<Creature>();
+        public void AddControllable(object controllable)
+        {
+            Destructibles.Add((Creature)controllable);
+        }
+
         public World(User user) 
         {
             GameCommands.PassDestructible = AddDestructible;
+            GameCommands.PassControllable = AddControllable;
 
             Map = new Map("TileSheets/GroundTilesReduced", 5);
 
             User = user;
-            GameCommands.PassDestructible(User.Wizard);
+            foreach( Creature controllable in User.Controllables)
+            {
+                AddControllable(controllable);
+                AddDestructible(controllable);
+            }
             AIPlayer = new AIPlayer(1);
 
             Players = new List<Player>
@@ -44,6 +55,14 @@ namespace SpellTactics
             playerTurn = 0;
             
             StartPlayerTurn(playerTurn);
+        }
+
+        public void DetermineTurn()
+        {
+            foreach (Creature controllable in Controllables)
+            {
+                controllable.Speed.AddValue(controllable.Speed.ValueMax / 10);
+            }
         }
 
         public void StartPlayerTurn(int player)

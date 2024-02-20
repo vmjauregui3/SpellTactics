@@ -11,5 +11,6 @@ namespace SpellTactics
     public static class GameCommands
     {
         public static PassObject PassDestructible;
+        public static PassObject PassControllable;
     }
 }
