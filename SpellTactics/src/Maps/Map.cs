@@ -29,7 +29,7 @@ namespace SpellTactics
                 tiles.Add(new Tile(Texture, sourceRect));
             }
 
-            tileMap = new int[5, 5];
+            tileMap = new int[64, 64];
         }
 
         public void Update()

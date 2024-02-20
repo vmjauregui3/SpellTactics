@@ -14,6 +14,10 @@ namespace SpellTactics
         public Vector2 CameraPosition;
         public int CameraSpeed;
 
+
+        public Sprite Cursor;
+        private Vector2 mousePosition;
+
         //private Vector2 RightClickHoldPos;
         private Vector2 rightClickPos;
         private bool waitingForClickRelease;
@@ -21,11 +25,12 @@ namespace SpellTactics
 
         public Wizard Wizard;
 
-        private Vector2 mousePosition;
+
 
         public User(int id) : base(id)
         {
-            Wizard = new Wizard(id, Vector2.Zero);
+            Cursor = new Sprite("Sprites/Cursor", new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y));
+            Wizard = new Wizard(id, Vector2.One);
             CameraSpeed = 10;
             waitingForClickRelease = false;
         }
@@ -92,7 +97,8 @@ namespace SpellTactics
         public override void Update(GameTime gameTime, World world)
         {
             ControlCamera();
-            mousePosition = Vector2.Transform(new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y), Matrix.Invert(Camera.Instance.Transform));
+            Cursor.Position = Vector2.Transform(new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y), Matrix.Invert(Camera.Instance.Transform));
+            mousePosition = Cursor.Position;
             Camera.Instance.UpdatePosition(CameraPosition);
 
             base.Update(gameTime, world);
@@ -111,6 +117,7 @@ namespace SpellTactics
         {
             Wizard.Draw(spriteBatch);
             base.Draw(spriteBatch);
+            Cursor.Draw(spriteBatch);
         }
     }
 }

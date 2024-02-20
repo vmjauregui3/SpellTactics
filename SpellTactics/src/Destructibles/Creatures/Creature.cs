@@ -26,7 +26,7 @@ namespace SpellTactics
 
         public bool IsCasting;
 
-        public Creature(int ownerId, Vector2 position) : base(ownerId, position)
+        public Creature(int ownerId, Vector2 mapPosition) : base(ownerId, mapPosition)
         {
             movement = new Stat(3);
             mana = new VariableStat(1000);

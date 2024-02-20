@@ -35,9 +35,11 @@ namespace SpellTactics
             GameCommands.PassDestructible(User.Wizard);
             AIPlayer = new AIPlayer(1);
 
-            Players = new List<Player>();
-            Players.Add(User);
-            Players.Add(AIPlayer);
+            Players = new List<Player>
+            {
+                User,
+                AIPlayer
+            };
 
             playerTurn = 0;
             
