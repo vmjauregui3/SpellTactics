@@ -10,20 +10,9 @@ namespace SpellTactics
 {
     // TODO: Requires Updated Stat Variables
     // TODO: Create an inherited Class that defines anything with agency in the game environment (such as indestructible buildings).
-    public abstract class Destructible
+    public abstract class Destructible : GameObject
     {
         // Destructibles are objects that represent everything in the game that has hit points and can be destroyed.
-
-        // Destructibles contain a sprite that represents them visiually and contains their game location.
-        public AnimatedSprite Sprite;
-
-        public Vector2 MapPosition;
-
-        public Vector2 Position
-        {
-            get { return MapPosition * STConstants.TileSize; }
-        }
-
 
         // Objects have health which determines when they get destroyed.
         protected VariableStat health;
@@ -55,7 +44,7 @@ namespace SpellTactics
         }
 
         // The constructor requires an ID to be created.
-        public Destructible(int ownerId, Vector2 mapPosition)
+        public Destructible(int ownerId, Vector2 mapPosition) : base(mapPosition)
         {
             this.ownerId = ownerId;
             isDead = false;
@@ -116,18 +105,6 @@ namespace SpellTactics
                 health.SetValue(health.ValueMax);
             }
             CheckIfDead();
-        }
-
-        // Updates the Sprite.
-        public virtual void Update(GameTime gameTime, Player enemy)
-        {
-            Sprite.Update(gameTime);
-        }
-
-        // Draws the Sprite.
-        public virtual void Draw(SpriteBatch spriteBatch)
-        {
-            Sprite.Draw(spriteBatch);
         }
     }
 }

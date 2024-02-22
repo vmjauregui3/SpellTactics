@@ -55,6 +55,7 @@ namespace SpellTactics
             {
                 if (destructible.MapPosition.Equals(mapPosition))
                 {
+                    DeselectObject();
                     targetObject = destructible;
                     destructible.Sprite.Tint = Color.Red;
                 }
@@ -63,7 +64,10 @@ namespace SpellTactics
 
         public void DeselectObject()
         {
-            targetObject.Sprite.Tint = Color.White;
+            if (targetObject != null)
+            {
+                targetObject.Sprite.Tint = Color.White;
+            }
             targetObject = null;
         }
 

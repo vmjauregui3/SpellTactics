@@ -13,7 +13,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Sprites/Cursor.png
+#begin Sprites/BarBackground.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -23,7 +23,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Cursor.png
+/build:Sprites/BarBackground.png
 
 #begin Sprites/Cursor.png
 /importer:TextureImporter
@@ -37,7 +37,7 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/Cursor.png
 
-#begin Sprites/Wizard.png
+#begin Sprites/SolidBar.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/Wizard.png
+/build:Sprites/SolidBar.png
 
 #begin Sprites/Wizard.png
 /importer:TextureImporter

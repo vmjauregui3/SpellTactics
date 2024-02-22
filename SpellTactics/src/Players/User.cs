@@ -14,6 +14,8 @@ namespace SpellTactics
         public Vector2 CameraPosition;
         public int CameraSpeed;
 
+        public UI UI;
+
 
         public Sprite Cursor;
         private Vector2 mousePosition;
@@ -31,6 +33,8 @@ namespace SpellTactics
             Controllables.Add(new Wizard(id, new Vector2(1, 2)));
             Controllables.Add(new Wizard(id, new Vector2(2, 1)));
             Controllables.Add(new Wizard(id, new Vector2(2, 2)));
+
+            UI = new UI();
             CameraSpeed = 10;
             waitingForClickRelease = false;
         }
@@ -39,11 +43,8 @@ namespace SpellTactics
         {
             if (MCursor.Instance.LeftClick())
             {
-                if(targetObject == null)
-                {
-                    SelectObject(GetTile(mousePosition), destructibles);
-                }
-                else
+                SelectObject(GetTile(mousePosition), destructibles);
+                if (targetObject == null)
                 {
                     targetPosition = GetTile(mousePosition);
                 }
@@ -101,6 +102,8 @@ namespace SpellTactics
             mousePosition = Cursor.Position;
             Camera.Instance.UpdatePosition(CameraPosition);
 
+            UI.Update(world.CreatureTurn);
+
             //base.Update(gameTime, world);
             if (isTurn)
             {
@@ -115,6 +118,7 @@ namespace SpellTactics
         public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
+            UI.Draw(spriteBatch);
             Cursor.Draw(spriteBatch);
         }
     }
