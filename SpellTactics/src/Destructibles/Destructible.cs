@@ -92,11 +92,13 @@ namespace SpellTactics
         public virtual void EndTurn()
         {
             isTurn = false;
+            Sprite.Tint = Color.White;
         }
 
         public virtual void StartTurn()
         {
             isTurn = true;
+            Sprite.Tint = Color.Black;
         }
 
         // UpdateHealth damages the object and checks its life status afterward.

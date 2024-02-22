@@ -22,14 +22,14 @@ namespace SpellTactics
         }
 
 
-        protected Destructible selectedObject;
-        protected Vector2 selectedPosition;
+        protected Destructible targetObject;
+        protected Vector2 targetPosition;
 
         public Player(int id)
         {
             this.id = id;
             bool isTurn = false;
-            selectedPosition = Vector2.Zero;
+            targetPosition = Vector2.Zero;
         }
         
         public virtual void ControlMovements()
@@ -45,19 +45,26 @@ namespace SpellTactics
 
         public Vector2 GetTile(Vector2 position)
         {
-            return position / STConstants.TileSize;
+            return new Vector2((int)(position.X / STConstants.TileSize), (int)(position.Y / STConstants.TileSize));
         }
 
 
-        public void SelectObject(Vector2 mapPosition, List<Destructible> destructibles)
+        public void SelectObject(Vector2 mapPosition, LinkedList<Destructible> destructibles)
         {
             foreach(Destructible destructible in destructibles)
             {
                 if (destructible.MapPosition.Equals(mapPosition))
                 {
-                    selectedObject = destructible;
+                    targetObject = destructible;
+                    destructible.Sprite.Tint = Color.Red;
                 }
             }
+        }
+
+        public void DeselectObject()
+        {
+            targetObject.Sprite.Tint = Color.White;
+            targetObject = null;
         }
 
         public virtual void StartTurn()
@@ -69,8 +76,7 @@ namespace SpellTactics
         {
             if (isTurn)
             {
-                EndTurn();
-                world.EndPlayerTurn();
+                world.EndTurn();
             }
         }
 

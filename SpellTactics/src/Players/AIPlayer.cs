@@ -16,6 +16,10 @@ namespace SpellTactics
         // TODO: Create method of defining AIPlayers that is flexible and replicable. Likely requires this class to become an inheritor class.
         public AIPlayer(int id) : base(id)
         {
+            Controllables.Add(new Wizard(id, new Vector2(11, 11)));
+            Controllables.Add(new Wizard(id, new Vector2(11, 12)));
+            Controllables.Add(new Wizard(id, new Vector2(12, 11)));
+            Controllables.Add(new Wizard(id, new Vector2(12, 12)));
             //SpawnPoints.Add(new Portal(new Vector2(1300, 100), id));
 
             //SpawnPoints.Add(new Portal(new Vector2(1300, 800), id));

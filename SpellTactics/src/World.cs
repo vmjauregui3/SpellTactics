@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,20 +16,23 @@ namespace SpellTactics
         public User User;
         public AIPlayer AIPlayer;
 
-        public List<Player> Players;
+        //public List<Player> Players;
+        public Dictionary<int, Player> Players;
+
+        public Creature CreatureTurn;
         private int playerTurn;
 
-        public List<Destructible> Destructibles = new List<Destructible>();
+        public LinkedList<Destructible> Destructibles = new LinkedList<Destructible>();
 
         public void AddDestructible(object destructible)
         {
-            Destructibles.Add((Destructible)destructible);
+            Destructibles.AddLast((Destructible)destructible);
         }
 
-        public List<Creature> Controllables = new List<Creature>();
+        public LinkedList<Creature> Controllables = new LinkedList<Creature>();
         public void AddControllable(object controllable)
         {
-            Destructibles.Add((Creature)controllable);
+            Controllables.AddLast((Creature)controllable);
         }
 
         public World(User user) 
@@ -45,31 +49,63 @@ namespace SpellTactics
                 AddDestructible(controllable);
             }
             AIPlayer = new AIPlayer(1);
-
-            Players = new List<Player>
+            foreach (Creature controllable in AIPlayer.Controllables)
             {
-                User,
-                AIPlayer
+                AddControllable(controllable);
+                AddDestructible(controllable);
+            }
+
+            Players = new Dictionary<int, Player>
+            {
+                { 0, User },
+                { 1, AIPlayer }
             };
 
-            playerTurn = 0;
-            
-            StartPlayerTurn(playerTurn);
+            DetermineTurn();
         }
 
         public void DetermineTurn()
         {
-            foreach (Creature controllable in Controllables)
+            bool turnFound = false;
+            while (!turnFound)
             {
-                controllable.Speed.AddValue(controllable.Speed.ValueMax / 10);
+
+                foreach (Creature controllable in Controllables)
+                {
+                    if ((controllable.Speed.Value.CompareTo(controllable.Speed.ValueMax) >= 0) && !turnFound)
+                    {
+                        controllable.Speed.AddValue(-controllable.Speed.ValueMax);
+                        StartTurn(controllable);
+                        //controllable.StartTurn();
+                        //StartPlayerTurn(controllable.OwnerId);
+                        turnFound = true;
+                    }
+                }
+                if (!turnFound)
+                {
+                    foreach (Creature controllable in Controllables)
+                    {
+                        controllable.Speed.AddValue(controllable.Speed.ValueMax / 10);
+                    }
+                }
             }
         }
 
-        public void StartPlayerTurn(int player)
+        public void StartTurn(Creature creatureTurn)
         {
-            Players[player].StartTurn();
+            CreatureTurn = creatureTurn;
+            creatureTurn.StartTurn();
+            Players[creatureTurn.OwnerId].StartTurn();
         }
 
+        public void EndTurn()
+        {
+            Players[CreatureTurn.OwnerId].EndTurn();
+            CreatureTurn.EndTurn();
+            DetermineTurn();
+        }
+
+        /*
         public void EndPlayerTurn()
         {
             playerTurn++;
@@ -79,13 +115,14 @@ namespace SpellTactics
             }
             StartPlayerTurn(playerTurn);
         }
+        */
 
         public void Update(GameTime gameTime)
         {
             Map.Update();
-            foreach (Player player in Players)
+            foreach (var player in Players)
             {
-                player.Update(gameTime, this);
+                player.Value.Update(gameTime, this);
             }
             //Camera.Instance.UpdatePosition(User.Wizard.Sprite.Position);
         }
@@ -93,8 +130,8 @@ namespace SpellTactics
         public void Draw(SpriteBatch spriteBatch)
         {
             Map.Draw(spriteBatch);
-            User.Draw(spriteBatch);
             AIPlayer.Draw(spriteBatch);
+            User.Draw(spriteBatch);
         }
     }
 }

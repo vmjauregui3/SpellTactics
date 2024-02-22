@@ -35,22 +35,22 @@ namespace SpellTactics
             waitingForClickRelease = false;
         }
 
-        public void ControlInput(List<Destructible> destructibles)
+        public void ControlInput(LinkedList<Destructible> destructibles)
         {
             if (MCursor.Instance.LeftClick())
             {
-                if(selectedObject == null)
+                if(targetObject == null)
                 {
-                    SelectObject(mousePosition, destructibles);
+                    SelectObject(GetTile(mousePosition), destructibles);
                 }
                 else
                 {
-                    selectedPosition = mousePosition;
+                    targetPosition = GetTile(mousePosition);
                 }
             }
             if (MCursor.Instance.RightClick())
             {
-                selectedObject = null;
+                DeselectObject();
             }
 
         }
@@ -101,14 +101,13 @@ namespace SpellTactics
             mousePosition = Cursor.Position;
             Camera.Instance.UpdatePosition(CameraPosition);
 
-            base.Update(gameTime, world);
+            //base.Update(gameTime, world);
             if (isTurn)
             {
                 ControlInput(world.Destructibles);
                 if (InputManager.Instance.KeyPressed(Keys.Enter))
                 {
-                    EndTurn();
-                    world.EndPlayerTurn();
+                    world.EndTurn();
                 }
             }
         }
