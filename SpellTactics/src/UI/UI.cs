@@ -51,7 +51,7 @@ namespace SpellTactics
             manaBar.Update(creatureTurn.Mana.Value, creatureTurn.Mana.ValueMax, new Vector2(creatureTurn.Position.X, creatureTurn.Position.Y-barHeight));
         }
 
-        public void HighlightMovement(Creature creatureTurn, int radius)
+        public void HighlightMovement(LinkedList<Destructible> destructibles, Creature creatureTurn, int radius)
         {
             ClearHighlight();
             if (!ShowingMovement)

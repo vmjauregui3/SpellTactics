@@ -54,10 +54,7 @@ namespace SpellTactics
                 DeselectObject();
             }
 
-            if (InputManager.Instance.KeyPressed(Keys.M))
-            {
-                UI.HighlightMovement(creatureTurn, (int)creatureTurn.Movement.Value);
-            }
+            ControlMovements(creatureTurn, destructibles);
         }
 
         public void ControlCamera()
@@ -94,9 +91,12 @@ namespace SpellTactics
 
         }
 
-        public override void ControlMovements()
+        public void ControlMovements(Creature creatureTurn, LinkedList<Destructible> destructibles)
         {
-            //Wizard.Move(selectedPosition);
+            if (InputManager.Instance.KeyPressed(Keys.M))
+            {
+                UI.HighlightMovement(destructibles, creatureTurn, (int)creatureTurn.Movement.Value);
+            }
         }
 
         public override void Update(GameTime gameTime, World world)
@@ -112,11 +112,14 @@ namespace SpellTactics
             //base.Update(gameTime, world);
             if (isTurn)
             {
-                ControlInput(world.CreatureTurn, world.Destructibles);
                 if (InputManager.Instance.KeyPressed(Keys.Enter))
                 {
                     world.EndTurn();
                     UI.EndTurn();
+                }
+                else
+                {
+                    ControlInput(world.CreatureTurn, world.Destructibles);
                 }
             }
         }
