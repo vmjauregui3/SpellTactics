@@ -15,6 +15,8 @@ namespace SpellTactics
         private Vector2 screenOrigin;
 
         private TurnMarker turnMarker;
+        private List<TileHighlight> highlightTiles;
+        public bool ShowingMovement;
 
         //private string killCountString;
         private DisplayBar healthBar;
@@ -33,6 +35,8 @@ namespace SpellTactics
             healthBar = new DisplayBar(new Vector2(barWidth, barHeight), barBorder, Color.Red);
             manaBar = new DisplayBar(new Vector2(barWidth, barHeight), barBorder, Color.Blue);
             turnMarker = new TurnMarker(Color.Green);
+            highlightTiles = new List<TileHighlight>();
+            ShowingMovement = false;
         }
 
         public void Update(Creature creatureTurn)
@@ -47,13 +51,49 @@ namespace SpellTactics
             manaBar.Update(creatureTurn.Mana.Value, creatureTurn.Mana.ValueMax, new Vector2(creatureTurn.Position.X, creatureTurn.Position.Y-barHeight));
         }
 
+        public void HighlightMovement(Creature creatureTurn, int radius)
+        {
+            ClearHighlight();
+            if (!ShowingMovement)
+            {
+                for (int i = radius; i >= -radius; i--)
+                {
+                    for (int j = radius; j >= -radius; j--)
+                    {
+                        highlightTiles.Add(new TileHighlight(GameFunctions.MapPosToPos(new Vector2(creatureTurn.MapPosition.X + i, creatureTurn.MapPosition.Y + j)), Color.CornflowerBlue));
+                    }
+                }
+                ShowingMovement = true;
+            }
+            else
+            {
+                ShowingMovement = false;
+            }
+        }
+
+        public void ClearHighlight()
+        {
+            highlightTiles.Clear();
+        }
+
+        public void EndTurn()
+        {
+            ClearHighlight();
+            ShowingMovement = false;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             //Vector2 stringDimensions = font.MeasureString(killCountString + world.NumKilled);
             //spriteBatch.DrawString(font, killCountString + world.NumKilled, new Vector2(10, 10) + screenOrigin, Color.Black);
 
             turnMarker.Draw(spriteBatch);
-            
+
+            foreach (TileHighlight tile in highlightTiles)
+            {
+                tile.Draw(spriteBatch);
+            }
+
             healthBar.Draw(spriteBatch);
             manaBar.Draw(spriteBatch);
         }

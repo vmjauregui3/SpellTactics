@@ -56,9 +56,9 @@ namespace SpellTactics
             IsCasting = !IsCasting;
         }
 
-        public override void Update(GameTime gameTime, Player enemy)
+        public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime, enemy);
+            base.Update(gameTime);
         }
 
         // UpdateHealth damages the object and checks its life status afterward.

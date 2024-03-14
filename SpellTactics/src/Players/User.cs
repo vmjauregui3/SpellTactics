@@ -39,7 +39,7 @@ namespace SpellTactics
             waitingForClickRelease = false;
         }
 
-        public void ControlInput(LinkedList<Destructible> destructibles)
+        public void ControlInput(Creature creatureTurn, LinkedList<Destructible> destructibles)
         {
             if (MCursor.Instance.LeftClick())
             {
@@ -54,6 +54,10 @@ namespace SpellTactics
                 DeselectObject();
             }
 
+            if (InputManager.Instance.KeyPressed(Keys.M))
+            {
+                UI.HighlightMovement(creatureTurn, (int)creatureTurn.Movement.Value);
+            }
         }
 
         public void ControlCamera()
@@ -97,6 +101,7 @@ namespace SpellTactics
 
         public override void Update(GameTime gameTime, World world)
         {
+
             ControlCamera();
             Cursor.Position = Vector2.Transform(new Vector2(MCursor.Instance.newMousePos.X, MCursor.Instance.newMousePos.Y), Matrix.Invert(Camera.Instance.Transform));
             mousePosition = Cursor.Position;
@@ -107,10 +112,11 @@ namespace SpellTactics
             //base.Update(gameTime, world);
             if (isTurn)
             {
-                ControlInput(world.Destructibles);
+                ControlInput(world.CreatureTurn, world.Destructibles);
                 if (InputManager.Instance.KeyPressed(Keys.Enter))
                 {
                     world.EndTurn();
+                    UI.EndTurn();
                 }
             }
         }

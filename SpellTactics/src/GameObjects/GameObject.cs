@@ -25,7 +25,7 @@ namespace SpellTactics
             MapPosition = mapPosition;
         }
 
-        public virtual void Update(GameTime gameTime, Player enemy)
+        public virtual void Update(GameTime gameTime)
         {
             Sprite.Update(gameTime);
         }

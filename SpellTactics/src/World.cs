@@ -20,7 +20,6 @@ namespace SpellTactics
         public Dictionary<int, Player> Players;
 
         public Creature CreatureTurn;
-        private int playerTurn;
 
         public LinkedList<Destructible> Destructibles = new LinkedList<Destructible>();
 
@@ -60,6 +59,7 @@ namespace SpellTactics
                 { 0, User },
                 { 1, AIPlayer }
             };
+
 
             DetermineTurn();
         }
@@ -105,18 +105,6 @@ namespace SpellTactics
             DetermineTurn();
         }
 
-        /*
-        public void EndPlayerTurn()
-        {
-            playerTurn++;
-            if (playerTurn >= Players.Count)
-            {
-                playerTurn = 0;
-            }
-            StartPlayerTurn(playerTurn);
-        }
-        */
-
         public void Update(GameTime gameTime)
         {
             Map.Update();
@@ -124,6 +112,7 @@ namespace SpellTactics
             {
                 player.Value.Update(gameTime, this);
             }
+
             //Camera.Instance.UpdatePosition(User.Wizard.Sprite.Position);
         }
 

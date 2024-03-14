@@ -61,6 +61,7 @@ namespace SpellTactics
             graphics.PreferredBackBufferHeight = gameHeight;
 
             graphics.IsFullScreen = true;
+
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -107,7 +108,7 @@ namespace SpellTactics
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin(transformMatrix: Camera.Instance.Transform);
             world.Draw(spriteBatch);

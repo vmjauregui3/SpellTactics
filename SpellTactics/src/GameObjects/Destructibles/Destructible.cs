@@ -54,11 +54,6 @@ namespace SpellTactics
             //Position = MapPosToPos(mapPosition);
         }
 
-        public Vector2 MapPosToPos(Vector2 mapPos)
-        {
-            return new Vector2(mapPos.X*STConstants.TileSize, mapPos.Y*STConstants.TileSize);
-        }
-
         public void CheckIfDead()
         {
             if (health.Value <= 0)
