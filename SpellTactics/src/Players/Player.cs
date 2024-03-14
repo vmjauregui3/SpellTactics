@@ -49,8 +49,15 @@ namespace SpellTactics
         }
 
 
-        public void SelectObject(Vector2 mapPosition, LinkedList<Destructible> destructibles)
+        public void SelectObject(Vector2 mapPosition, Dictionary<Vector2, Destructible> destructibles)
         {
+            if (destructibles.ContainsKey(mapPosition))
+            {
+                DeselectObject();
+                targetObject = destructibles[mapPosition];
+                destructibles[mapPosition].Sprite.Tint = Color.Red;
+            }
+            /*
             foreach(Destructible destructible in destructibles)
             {
                 if (destructible.MapPosition.Equals(mapPosition))
@@ -60,6 +67,7 @@ namespace SpellTactics
                     destructible.Sprite.Tint = Color.Red;
                 }
             }
+            */
         }
 
         public void DeselectObject()

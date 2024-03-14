@@ -7,11 +7,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace SpellTactics
 {
-    public class TurnMarker
+    public class TileMarker
     {
         public Sprite box;
 
-        public TurnMarker(Color color)
+        public TileMarker(Color color)
         {
             box = new Sprite("Sprites/SelectorBox", Vector2.Zero);
             box.Tint = color;

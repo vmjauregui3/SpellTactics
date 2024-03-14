@@ -14,7 +14,8 @@ namespace SpellTactics
         private SpriteFont font;
         private Vector2 screenOrigin;
 
-        private TurnMarker turnMarker;
+        private TileMarker turnMarker;
+        private TileMarker selectedObjectMarker;
         private List<TileHighlight> highlightTiles;
         public bool ShowingMovement;
 
@@ -34,7 +35,7 @@ namespace SpellTactics
             barBorder = 2;
             healthBar = new DisplayBar(new Vector2(barWidth, barHeight), barBorder, Color.Red);
             manaBar = new DisplayBar(new Vector2(barWidth, barHeight), barBorder, Color.Blue);
-            turnMarker = new TurnMarker(Color.Green);
+            turnMarker = new TileMarker(Color.Green);
             highlightTiles = new List<TileHighlight>();
             ShowingMovement = false;
         }
@@ -51,7 +52,7 @@ namespace SpellTactics
             manaBar.Update(creatureTurn.Mana.Value, creatureTurn.Mana.ValueMax, new Vector2(creatureTurn.Position.X, creatureTurn.Position.Y-barHeight));
         }
 
-        public void HighlightMovement(LinkedList<Destructible> destructibles, Creature creatureTurn, int radius)
+        public void HighlightMovement(Dictionary<Vector2, Destructible> destructibles, Creature creatureTurn, int radius)
         {
             ClearHighlight();
             if (!ShowingMovement)

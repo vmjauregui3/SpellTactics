@@ -21,12 +21,14 @@ namespace SpellTactics
 
         public Creature CreatureTurn;
 
-        public LinkedList<Destructible> Destructibles = new LinkedList<Destructible>();
+        public Dictionary<Vector2, Destructible> Destructibles = new Dictionary<Vector2, Destructible>();
 
-        public void AddDestructible(object destructible)
+        
+        public void AddDestructible(Vector2 mapPos, object destructible)
         {
-            Destructibles.AddLast((Destructible)destructible);
+            Destructibles.Add(mapPos, (Destructible)destructible);
         }
+        
 
         public LinkedList<Creature> Controllables = new LinkedList<Creature>();
         public void AddControllable(object controllable)
@@ -36,7 +38,7 @@ namespace SpellTactics
 
         public World(User user) 
         {
-            GameCommands.PassDestructible = AddDestructible;
+            //GameCommands.PassDestructible = AddDestructible;
             GameCommands.PassControllable = AddControllable;
 
             Map = new Map("TileSheets/GroundTilesReduced", 5);
@@ -45,13 +47,13 @@ namespace SpellTactics
             foreach( Creature controllable in User.Controllables)
             {
                 AddControllable(controllable);
-                AddDestructible(controllable);
+                AddDestructible(controllable.MapPosition, controllable);
             }
             AIPlayer = new AIPlayer(1);
             foreach (Creature controllable in AIPlayer.Controllables)
             {
                 AddControllable(controllable);
-                AddDestructible(controllable);
+                AddDestructible(controllable.MapPosition, controllable);
             }
 
             Players = new Dictionary<int, Player>

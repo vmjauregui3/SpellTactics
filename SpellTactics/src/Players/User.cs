@@ -39,7 +39,7 @@ namespace SpellTactics
             waitingForClickRelease = false;
         }
 
-        public void ControlInput(Creature creatureTurn, LinkedList<Destructible> destructibles)
+        public void ControlInput(Creature creatureTurn, Dictionary<Vector2, Destructible> destructibles)
         {
             if (MCursor.Instance.LeftClick())
             {
@@ -91,7 +91,7 @@ namespace SpellTactics
 
         }
 
-        public void ControlMovements(Creature creatureTurn, LinkedList<Destructible> destructibles)
+        public void ControlMovements(Creature creatureTurn, Dictionary<Vector2, Destructible> destructibles)
         {
             if (InputManager.Instance.KeyPressed(Keys.M))
             {
