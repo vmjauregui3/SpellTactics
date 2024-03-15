@@ -27,6 +27,7 @@ namespace SpellTactics
 
         public virtual void Update(GameTime gameTime)
         {
+            Sprite.Position = Position;
             Sprite.Update(gameTime);
         }
 

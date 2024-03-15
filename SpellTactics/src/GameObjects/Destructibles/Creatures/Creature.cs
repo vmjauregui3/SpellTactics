@@ -4,6 +4,7 @@ using System.Text;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct2D1;
 
 namespace SpellTactics
 {
@@ -18,8 +19,8 @@ namespace SpellTactics
         {
             get { return speed; }
         }
-        protected Stat movement;
-        public Stat Movement
+        protected VariableStat movement;
+        public VariableStat Movement
         {
             get { return movement; }
         }
@@ -44,7 +45,7 @@ namespace SpellTactics
         {
             speed = new VariableStat(100);
             speed.SetValue(0);
-            movement = new Stat(3);
+            movement = new VariableStat(3);
             mana = new VariableStat(1000);
             manaRegen = new VariableStat(5);
             manaTimer = new MTimer(100);
@@ -77,6 +78,14 @@ namespace SpellTactics
             float finalDamage = damage;
 
             UpdateHealth(finalDamage);
+        }
+
+
+        public void Move(Vector2 movement)
+        {
+            MapPosition += movement;
+            Sprite.Position = Position;
+            this.movement.AddValue(-1);
         }
 
         public bool HasMana(int manaCost)

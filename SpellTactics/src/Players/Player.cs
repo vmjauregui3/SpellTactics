@@ -51,31 +51,15 @@ namespace SpellTactics
 
         public void SelectObject(Vector2 mapPosition, Dictionary<Vector2, Destructible> destructibles)
         {
+            DeselectObject();
             if (destructibles.ContainsKey(mapPosition))
             {
-                DeselectObject();
                 targetObject = destructibles[mapPosition];
-                destructibles[mapPosition].Sprite.Tint = Color.Red;
             }
-            /*
-            foreach(Destructible destructible in destructibles)
-            {
-                if (destructible.MapPosition.Equals(mapPosition))
-                {
-                    DeselectObject();
-                    targetObject = destructible;
-                    destructible.Sprite.Tint = Color.Red;
-                }
-            }
-            */
         }
 
         public void DeselectObject()
         {
-            if (targetObject != null)
-            {
-                targetObject.Sprite.Tint = Color.White;
-            }
             targetObject = null;
         }
 

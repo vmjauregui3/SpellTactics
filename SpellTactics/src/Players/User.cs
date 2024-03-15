@@ -43,14 +43,12 @@ namespace SpellTactics
         {
             if (MCursor.Instance.LeftClick())
             {
-                SelectObject(GetTile(mousePosition), destructibles);
-                if (targetObject == null)
-                {
-                    targetPosition = GetTile(mousePosition);
-                }
+                SelectObject(GameFunctions.PosToMapPos(mousePosition), destructibles);
+                UI.SelectTile(GameFunctions.PosToMapPos(mousePosition), targetObject != null);
             }
             if (MCursor.Instance.RightClick())
             {
+                UI.ClearMarkedTiles();
                 DeselectObject();
             }
 
@@ -93,6 +91,14 @@ namespace SpellTactics
 
         public void ControlMovements(Creature creatureTurn, Dictionary<Vector2, Destructible> destructibles)
         {
+            if (InputManager.Instance.KeyPressed(Keys.Space))
+            {
+                if (UI.ValidMovement)
+                {
+                    creatureTurn.Move(UI.selectedTile.MapPosition-creatureTurn.MapPosition);
+                    UI.MoveCreature();
+                }
+            }
             if (InputManager.Instance.KeyPressed(Keys.M))
             {
                 UI.HighlightMovement(destructibles, creatureTurn, (int)creatureTurn.Movement.Value);

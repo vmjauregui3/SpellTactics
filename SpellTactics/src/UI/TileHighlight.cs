@@ -13,16 +13,19 @@ namespace SpellTactics
     {
         public Sprite tile;
 
+        public Vector2 MapPosition;
+
+        public Vector2 Position
+        {
+            get { return MapPosition * STConstants.TileSize; }
+        }
+
 
         public TileHighlight(Vector2 position, Color color)
         {
-            tile = new Sprite("Sprites/TileHighlight", position);
+            MapPosition = position;
+            tile = new Sprite("Sprites/TileHighlight", Position);
             tile.Tint = color;
-        }
-
-        public virtual void Update(Vector2 position)
-        {
-            tile.Position = position;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)

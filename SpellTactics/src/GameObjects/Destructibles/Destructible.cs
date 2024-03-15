@@ -62,12 +62,6 @@ namespace SpellTactics
             }
         }
 
-        public void Move(Vector2 movement)
-        {
-            MapPosition += movement;
-            Sprite.Position = Position;
-        }
-
         public void SetIsLoaded(bool isLoaded)
         {
             this.isLoaded = isLoaded;

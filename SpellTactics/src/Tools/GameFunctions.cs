@@ -15,6 +15,11 @@ namespace SpellTactics
             return new Vector2(mapPos.X * STConstants.TileSize, mapPos.Y * STConstants.TileSize);
         }
 
+        public static Vector2 PosToMapPos(Vector2 position)
+        {
+            return new Vector2((int)(position.X / STConstants.TileSize), (int)(position.Y / STConstants.TileSize));
+        }
+
         // Does Nothing Currently
 
         public static int[,] CreateTileCircle( int radius)
