@@ -28,13 +28,6 @@ namespace SpellTactics
             get { return isDead; }
         }
 
-        // ownerID determines how the object interacts with its surroundings.
-        private int ownerId;
-        public int OwnerId
-        {
-            get { return ownerId; }
-        }
-
         protected bool isTurn;
 
         protected bool isLoaded;
@@ -44,9 +37,8 @@ namespace SpellTactics
         }
 
         // The constructor requires an ID to be created.
-        public Destructible(int ownerId, Vector2 mapPosition) : base(mapPosition)
+        public Destructible(int ownerId, Vector2 mapPosition) : base(ownerId, mapPosition)
         {
-            this.ownerId = ownerId;
             isDead = false;
             isTurn = false;
             health = new VariableStat(10);

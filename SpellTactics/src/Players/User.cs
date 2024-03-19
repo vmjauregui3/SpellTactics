@@ -34,6 +34,9 @@ namespace SpellTactics
             Controllables.Add(new Wizard(id, new Vector2(2, 1)));
             Controllables.Add(new Wizard(id, new Vector2(2, 2)));
 
+            ObjectiveTiles.Add(new ObjectiveTile(id, new Vector2(5, 15)));
+            ObjectiveTiles.Add(new ObjectiveTile(id, new Vector2(10, 15)));
+
             UI = new UI();
             CameraSpeed = 10;
             waitingForClickRelease = false;

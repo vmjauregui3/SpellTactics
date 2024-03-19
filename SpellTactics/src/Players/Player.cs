@@ -14,6 +14,8 @@ namespace SpellTactics
 
         public List<Creature> Controllables = new List<Creature>();
 
+        public List<ObjectiveTile> ObjectiveTiles = new List<ObjectiveTile>();
+
         // Player id is used to organize Creatures under Player control.
         private int id;
         public int Id
@@ -77,6 +79,10 @@ namespace SpellTactics
             {
                 controllable.Update(gameTime);
             }
+            foreach (ObjectiveTile objectiveTile in ObjectiveTiles)
+            {
+                objectiveTile.Update(gameTime);
+            }
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -84,6 +90,10 @@ namespace SpellTactics
             foreach (Creature controllable in Controllables)
             {
                 controllable.Draw(spriteBatch);
+            }
+            foreach (ObjectiveTile objectiveTile in ObjectiveTiles)
+            {
+                objectiveTile.Draw(spriteBatch);
             }
         }
     }
