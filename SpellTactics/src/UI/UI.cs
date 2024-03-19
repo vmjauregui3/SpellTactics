@@ -55,10 +55,10 @@ namespace SpellTactics
             manaBar.Update(creatureTurn.Mana.Value, creatureTurn.Mana.ValueMax, new Vector2(creatureTurn.Position.X, creatureTurn.Position.Y-barHeight));
         }
 
-        public void HighlightMovement(Dictionary<Vector2, Destructible> destructibles, Creature creatureTurn, int radius)
+        public void HighlightMovement(List<Destructible> destructibles, Creature creatureTurn, int radius)
         {
             ClearHighlight();
-            ClearMarkedTiles();
+            ClearSelectedTile();
             if (!ShowingMovement)
             {
                 for (int i = radius; i >= -radius; i--)
@@ -83,7 +83,7 @@ namespace SpellTactics
         public void MoveCreature()
         {
             ClearHighlight();
-            ClearMarkedTiles();
+            ClearSelectedTile();
             ShowingMovement = false;
             ValidMovement = false;
         }
@@ -95,7 +95,7 @@ namespace SpellTactics
 
         public void SelectTile(Vector2 mapPos, bool objectSelected)
         {
-            ClearMarkedTiles();
+            ClearSelectedTile();
             Color selectColor = Color.Orange;
             ValidMovement = false;
 
@@ -122,7 +122,7 @@ namespace SpellTactics
             selectedTile = new TileMarker(selectColor, mapPos);
         }
 
-        public void ClearMarkedTiles()
+        public void ClearSelectedTile()
         {
             selectedTile = new TileMarker();
         }
@@ -130,7 +130,7 @@ namespace SpellTactics
         public void EndTurn()
         {
             ClearHighlight();
-            ClearMarkedTiles();
+            ClearSelectedTile();
             ShowingMovement = false;
         }
 

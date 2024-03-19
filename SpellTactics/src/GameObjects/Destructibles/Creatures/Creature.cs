@@ -97,6 +97,12 @@ namespace SpellTactics
             }
             return hasMana;
         }
+
+        public override void StartTurn()
+        {
+            base.StartTurn();
+            movement.SetValue(movement.ValueMax);
+        }
     }
 }
 

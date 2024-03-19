@@ -30,6 +30,10 @@ namespace SpellTactics
         public override void Update(GameTime gameTime, World world)
         {
             base.Update(gameTime, world);
+            if (isTurn)
+            {
+                world.EndTurn();
+            }
         }
     }
 }

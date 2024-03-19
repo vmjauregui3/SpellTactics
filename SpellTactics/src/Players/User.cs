@@ -39,7 +39,7 @@ namespace SpellTactics
             waitingForClickRelease = false;
         }
 
-        public void ControlInput(Creature creatureTurn, Dictionary<Vector2, Destructible> destructibles)
+        public void ControlInput(Creature creatureTurn, List<Destructible> destructibles)
         {
             if (MCursor.Instance.LeftClick())
             {
@@ -48,7 +48,7 @@ namespace SpellTactics
             }
             if (MCursor.Instance.RightClick())
             {
-                UI.ClearMarkedTiles();
+                UI.ClearSelectedTile();
                 DeselectObject();
             }
 
@@ -89,7 +89,7 @@ namespace SpellTactics
 
         }
 
-        public void ControlMovements(Creature creatureTurn, Dictionary<Vector2, Destructible> destructibles)
+        public void ControlMovements(Creature creatureTurn, List<Destructible> destructibles)
         {
             if (InputManager.Instance.KeyPressed(Keys.Space))
             {
@@ -128,6 +128,8 @@ namespace SpellTactics
                     ControlInput(world.CreatureTurn, world.Destructibles);
                 }
             }
+
+            base.Update(gameTime, world);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

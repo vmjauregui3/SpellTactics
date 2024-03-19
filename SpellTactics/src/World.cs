@@ -21,12 +21,12 @@ namespace SpellTactics
 
         public Creature CreatureTurn;
 
-        public Dictionary<Vector2, Destructible> Destructibles = new Dictionary<Vector2, Destructible>();
+        public List<Destructible> Destructibles = new List<Destructible>();
 
         
         public void AddDestructible(Vector2 mapPos, object destructible)
         {
-            Destructibles.Add(mapPos, (Destructible)destructible);
+            Destructibles.Add((Destructible)destructible);
         }
         
 

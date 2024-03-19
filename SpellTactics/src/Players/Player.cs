@@ -49,12 +49,15 @@ namespace SpellTactics
         }
 
 
-        public void SelectObject(Vector2 mapPosition, Dictionary<Vector2, Destructible> destructibles)
+        public void SelectObject(Vector2 mapPosition, List<Destructible> destructibles)
         {
             DeselectObject();
-            if (destructibles.ContainsKey(mapPosition))
+            foreach(Destructible destructible in destructibles)
             {
-                targetObject = destructibles[mapPosition];
+                if(destructible.MapPosition.Equals(mapPosition))
+                {
+                    targetObject = destructible;
+                }
             }
         }
 
@@ -70,9 +73,9 @@ namespace SpellTactics
 
         public virtual void Update(GameTime gameTime, World world)
         {
-            if (isTurn)
+            foreach (Creature controllable in Controllables)
             {
-                world.EndTurn();
+                controllable.Update(gameTime);
             }
         }
 
