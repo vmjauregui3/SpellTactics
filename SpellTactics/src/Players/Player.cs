@@ -87,13 +87,13 @@ namespace SpellTactics
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach (Creature controllable in Controllables)
-            {
-                controllable.Draw(spriteBatch);
-            }
             foreach (ObjectiveTile objectiveTile in ObjectiveTiles)
             {
                 objectiveTile.Draw(spriteBatch);
+            }
+            foreach (Creature controllable in Controllables)
+            {
+                controllable.Draw(spriteBatch);
             }
         }
     }

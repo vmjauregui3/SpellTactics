@@ -99,12 +99,24 @@ namespace SpellTactics
                 if (UI.ValidMovement)
                 {
                     creatureTurn.Move(UI.selectedTile.MapPosition-creatureTurn.MapPosition);
+                    CheckCaptureObjective(creatureTurn);
                     UI.MoveCreature();
                 }
             }
             if (InputManager.Instance.KeyPressed(Keys.M))
             {
                 UI.HighlightMovement(destructibles, creatureTurn, (int)creatureTurn.Movement.Value);
+            }
+        }
+
+        public void CheckCaptureObjective(Creature creatureTurn)
+        {
+            foreach (ObjectiveTile objectiveTile in ObjectiveTiles)
+            {
+                if (objectiveTile.MapPosition.Equals(creatureTurn.MapPosition))
+                {
+                    objectiveTile.GetCaptured();
+                }
             }
         }
 

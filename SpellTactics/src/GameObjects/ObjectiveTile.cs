@@ -15,10 +15,10 @@ namespace SpellTactics
         {
             IsCaptured = false;
 
-            String imagePath = "Sprites/ObjectiveTiles/BlueObjective";
+            String imagePath = "Sprites/ObjectiveTiles/RedObjective";
             if (ownerId == 1)
             {
-                imagePath = "Sprites/ObjectiveTiles/RedObjective";
+                imagePath = "Sprites/ObjectiveTiles/BlueObjective";
             }
             Sprite = new AnimatedSprite(imagePath, Position);
         }
@@ -26,10 +26,10 @@ namespace SpellTactics
         public void GetCaptured()
         {
             IsCaptured = true;
-            String imagePath = "Sprites/ObjectiveTiles/CapturedBlueObjective";
+            String imagePath = "Sprites/ObjectiveTiles/CapturedRedObjective";
             if (ownerId == 1)
             {
-                imagePath = "Sprites/ObjectiveTiles/CapturedRedObjective";
+                imagePath = "Sprites/ObjectiveTiles/CapturedBlueObjective";
             }
             Sprite = new AnimatedSprite(imagePath, Position);
         }
