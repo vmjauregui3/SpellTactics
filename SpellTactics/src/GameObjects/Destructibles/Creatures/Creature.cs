@@ -85,7 +85,8 @@ namespace SpellTactics
         {
             MapPosition += movement;
             Sprite.Position = Position;
-            this.movement.AddValue(-1);
+            this.movement.AddValue(-(float)Math.Sqrt((float)Math.Pow(movement.X, 2) + (float)Math.Pow(movement.Y,2)));
+            //this.movement.AddValue(-1);
         }
 
         public bool HasMana(int manaCost)

@@ -68,7 +68,10 @@ namespace SpellTactics
                         Vector2 temp = new Vector2(creatureTurn.MapPosition.X + i, creatureTurn.MapPosition.Y + j);
                         if ( (temp.X >= 0) && (temp.Y >= 0))
                         {
-                            highlightTiles.Add(new TileHighlight(temp, Color.CornflowerBlue));
+                            if ((int)Math.Sqrt((int)Math.Pow(i, 2) + (int)Math.Pow(j, 2)) <= radius)
+                            {
+                                highlightTiles.Add(new TileHighlight(temp, Color.CornflowerBlue));
+                            }
                         }
                     }
                 }
