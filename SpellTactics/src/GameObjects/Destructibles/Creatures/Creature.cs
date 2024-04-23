@@ -12,7 +12,7 @@ namespace SpellTactics
     {
         // Creature is an abstract grouping of destructibles that have some form of intelligence commanding them.
 
-
+        public Spell Spell;
 
         protected VariableStat speed;
         public VariableStat Speed
@@ -46,9 +46,7 @@ namespace SpellTactics
             speed = new VariableStat(100);
             speed.SetValue(0);
             movement = new VariableStat(3);
-            mana = new VariableStat(1000);
-            manaRegen = new VariableStat(5);
-            manaTimer = new MTimer(100);
+            mana = new VariableStat(50);
             IsCasting = false;
         }
 
@@ -97,6 +95,12 @@ namespace SpellTactics
                 hasMana = false;
             }
             return hasMana;
+        }
+
+        public void CastSpell(Creature target)
+        {
+            target.UpdateHealth(Spell.Attributes["Damage"]);
+            UpdateMana(Spell.Cost);
         }
 
         public override void StartTurn()

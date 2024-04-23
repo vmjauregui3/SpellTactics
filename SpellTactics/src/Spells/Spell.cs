@@ -34,9 +34,9 @@ namespace SpellTactics
         }
 
         private float cost;
-        public float Cost
+        public int Cost
         {
-            get { return cost; }
+            get { return (int)Math.Floor(cost); }
         }
 
         private float upkeep;

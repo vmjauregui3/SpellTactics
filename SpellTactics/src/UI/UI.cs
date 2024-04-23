@@ -18,7 +18,9 @@ namespace SpellTactics
         public TileMarker selectedTile;
         private List<TileHighlight> highlightTiles;
         public bool ShowingMovement;
+        public bool ShowingHighlight;
         public bool ValidMovement;
+        public bool ValidTarget;
 
         //private string killCountString;
         private DisplayBar healthBar;
@@ -40,7 +42,9 @@ namespace SpellTactics
             selectedTile = new TileMarker();
             highlightTiles = new List<TileHighlight>();
             ShowingMovement = false;
+            ShowingHighlight = false;
             ValidMovement = false;
+            ValidTarget = false;
         }
 
         public void Update(Creature creatureTurn)
@@ -57,6 +61,7 @@ namespace SpellTactics
 
         public void HighlightMovement(List<Destructible> destructibles, Creature creatureTurn, int radius)
         {
+            ShowingHighlight = false;
             ClearHighlight();
             ClearSelectedTile();
             if (!ShowingMovement)
@@ -83,6 +88,35 @@ namespace SpellTactics
             }
         }
 
+        public void HighlightRadius(List<Destructible> destructibles, Creature creatureTurn, int radius)
+        {
+            ShowingMovement = false;
+            ClearHighlight();
+            ClearSelectedTile();
+            if (!ShowingHighlight)
+            {
+                for (int i = radius; i >= -radius; i--)
+                {
+                    for (int j = radius; j >= -radius; j--)
+                    {
+                        Vector2 temp = new Vector2(creatureTurn.MapPosition.X + i, creatureTurn.MapPosition.Y + j);
+                        if ((temp.X >= 0) && (temp.Y >= 0))
+                        {
+                            if ((int)Math.Sqrt((int)Math.Pow(i, 2) + (int)Math.Pow(j, 2)) <= radius)
+                            {
+                                highlightTiles.Add(new TileHighlight(temp, Color.OrangeRed));
+                            }
+                        }
+                    }
+                }
+                ShowingHighlight = true;
+            }
+            else
+            {
+                ShowingHighlight = false;
+            }
+        }
+
         public void MoveCreature()
         {
             ClearHighlight();
@@ -91,12 +125,20 @@ namespace SpellTactics
             ValidMovement = false;
         }
 
+        public void CastSpell()
+        {
+            ClearHighlight();
+            ClearSelectedTile();
+            ShowingHighlight = false;
+            ValidTarget = false;
+        }
+
         public void ClearHighlight()
         {
             highlightTiles.Clear();
         }
 
-        public void SelectTile(Vector2 mapPos, bool objectSelected)
+        public void SelectMovementTile(Vector2 mapPos, bool objectSelected)
         {
             ClearSelectedTile();
             Color selectColor = Color.Orange;
@@ -119,6 +161,31 @@ namespace SpellTactics
                     {
                         ValidMovement = true;
                         selectColor = Color.DarkBlue;
+                    }
+                }
+            }
+            selectedTile = new TileMarker(selectColor, mapPos);
+        }
+
+        public void SelectSpellTargetTile(Vector2 mapPos, bool objectSelected)
+        {
+            ClearSelectedTile();
+            Color selectColor = Color.Orange;
+            ValidTarget = false;
+
+            if (objectSelected)
+            {
+                selectColor = Color.DarkBlue;
+            }
+            else if (ShowingHighlight)
+            {
+                selectColor = Color.Red;
+                foreach (TileHighlight tile in highlightTiles)
+                {
+                    if (tile.MapPosition.Equals(mapPos))
+                    {
+                        ValidTarget = true;
+                        selectColor = Color.Red;
                     }
                 }
             }

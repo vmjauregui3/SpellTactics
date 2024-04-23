@@ -47,7 +47,11 @@ namespace SpellTactics
             if (MCursor.Instance.LeftClick())
             {
                 SelectObject(GameFunctions.PosToMapPos(mousePosition), destructibles);
-                UI.SelectTile(GameFunctions.PosToMapPos(mousePosition), targetObject != null);
+                UI.SelectMovementTile(GameFunctions.PosToMapPos(mousePosition), targetObject != null);
+                if (UI.ShowingHighlight)
+                {
+                    UI.SelectSpellTargetTile(GameFunctions.PosToMapPos(mousePosition), targetObject == null);
+                }
             }
             if (MCursor.Instance.RightClick())
             {
@@ -56,6 +60,23 @@ namespace SpellTactics
             }
 
             ControlMovements(creatureTurn, destructibles);
+
+
+            if (InputManager.Instance.KeyPressed(Keys.C))
+            {
+                UI.HighlightRadius(destructibles, creatureTurn, (int)creatureTurn.Spell.Attributes["Range"]);
+            }
+            if (InputManager.Instance.KeyPressed(Keys.Space))
+            {
+                if (UI.ValidTarget)
+                {
+                    if (creatureTurn.HasMana(creatureTurn.Spell.Cost))
+                    {
+                        creatureTurn.CastSpell((Creature)targetObject);
+                        UI.CastSpell();
+                    }
+                }
+            }
         }
 
         public void ControlCamera()

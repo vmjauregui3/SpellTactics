@@ -13,6 +13,7 @@ namespace SpellTactics
         public Wizard(int ownerId, Vector2 mapPosition) : base(ownerId, mapPosition)
         {
             Sprite = new AnimatedSprite("Sprites/Wizard", Position);
+            Spell = new Spell(SpellType.None, new Dictionary<string, float> { { "Damage", 1.0f }, { "Range", 5.0f } });
         }
     }
 }
